@@ -1,166 +1,225 @@
-&#x20;**Python Data Cleaning using Pandas**
+# Week-7: Delta Lake Data Cleaning using Databricks
 
+## 📌 Objective
 
+The objective of this assignment is to understand how to use Databricks with Apache Spark for data cleaning and Delta Lake operations. The assignment demonstrates reading data from a CSV file, performing data quality checks, cleaning the dataset, storing it as a Delta Table, and validating the final output.
 
-&#x20;**Objective**
+---
 
+## 🛠️ Tools & Technologies
 
+- Databricks Free Edition
+- Apache Spark (PySpark)
+- Delta Lake
+- Python
+- CSV Dataset
 
-The objective of this assignment was to learn the basics of Python and Pandas by loading a CSV file, exploring the dataset, cleaning the data, and saving the cleaned dataset as a new CSV file.
+---
 
+## 📂 Dataset
 
+**Dataset Name:** `customer_master.csv`
 
-&#x20;**Dataset**
+The dataset contains customer information with the following columns:
 
+- customer_id
+- name
+- city
+- age
+- email
 
+The dataset contains approximately **10,000 customer records** with intentionally inserted:
 
-\- \*\*Dataset Name:\*\* Sample - Superstore.csv
+- NULL values
+- Duplicate records
+- Invalid age values
 
+These issues were added to demonstrate real-world data cleaning.
 
+---
 
-This dataset contains sales information such as customer details, product details, sales, quantity, discount, and profit.
+## 📋 Steps Performed
 
+### Step 1: Upload Dataset
 
+- Uploaded `customer_master.csv` into Databricks.
+- Created a managed table named:
 
-**Steps Performed**
+```
+workspace.default.customer_master
+```
 
+---
 
+### Step 2: Read Data
 
-&#x20;1. Loaded the Dataset
+Loaded the table into a Spark DataFrame.
 
-\- Imported the Pandas library.
+Operations performed:
 
-\- Uploaded the CSV file into Google Colab.
+- Displayed records
+- Counted total rows
+- Printed schema
 
-\- Loaded the dataset into a Pandas DataFrame.
+---
 
+### Step 3: Data Quality Checks
 
+Performed the following validations:
 
-&#x20;2. Explored the Dataset
+- Total Record Count
+- Schema Verification
+- NULL Value Detection
+- Duplicate Record Detection
+- Invalid Age Detection
 
-I explored the dataset using different Pandas functions like:
+---
 
-\- `head()`
+### Step 4: Data Cleaning
 
-\- `tail()`
+Applied the following cleaning operations:
 
-\- `shape`
+- Removed NULL values
+- Removed duplicate records
+- Removed customers having invalid ages
 
-\- `columns`
+Condition used:
 
-\- `dtypes`
+```
+Age > 0
+```
 
-\- `info()`
+---
 
-\- `describe()`
+### Step 5: Save as Delta Table
 
+Stored the cleaned data into a Delta Lake table.
 
+Table Name:
 
-These functions helped me understand the structure of the dataset.
+```
+workspace.default.customer_master_clean
+```
+
+Storage Format:
 
+```
+Delta Lake
+```
 
+---
 
-&#x20;3. Checked Missing Values
+### Step 6: Verification
 
-I checked the dataset for missing values using `isnull().sum()`. The dataset did not contain any missing values, so no cleaning was required in this step.
+Verified that the cleaned Delta table:
 
+- Loads successfully
+- Contains only valid records
+- Has no NULL values
+- Has no duplicate records
+- Contains valid age values only
 
+---
 
-&#x20;4. Performed Basic Operations
+## 📊 Results
 
-I performed some basic operations on the dataset such as:
+### Initial Dataset
 
-\- Selecting specific columns
+- Records : 10,014
 
-\- Filtering rows based on different conditions
+### After Removing NULL Values
 
-\- Displaying required records
+- Records : 9,999
 
+### After Removing Invalid Ages
 
+- Records : 9,995
 
-&#x20;5. Removed Duplicate Records
+### Final Dataset
 
-I checked for duplicate rows using `duplicated()` and removed them using `drop\_duplicates()`.
+- Records : 9,995
 
+---
 
+## 📈 Data Cleaning Workflow
 
-6\. Created a New Column
+```
+CSV File
+      │
+      ▼
+Upload into Databricks
+      │
+      ▼
+Create Spark DataFrame
+      │
+      ▼
+Check Schema
+      │
+      ▼
+Detect NULL Values
+      │
+      ▼
+Detect Duplicate Records
+      │
+      ▼
+Detect Invalid Ages
+      │
+      ▼
+Clean Dataset
+      │
+      ▼
+Save as Delta Table
+      │
+      ▼
+Verify Final Data
+```
 
-The dataset did not contain a \*\*Price\*\* column, so I first calculated the price using:
+---
 
+## 📁 Repository Structure
 
+```
+Week-7/
+│
+├── customer_master.csv
+├── Week7_DeltaLake.ipynb
+├── README.md
+└── screenshots/
+```
 
-`Price = Sales / Quantity`
+---
 
+## 📚 Key Concepts Learned
 
+- Databricks Workspace
+- Serverless Compute
+- Apache Spark DataFrames
+- PySpark Transformations
+- Data Cleaning Techniques
+- Delta Lake
+- Managed Tables
+- Data Validation
+- Data Quality Checks
 
-Then I created a new column:
+---
 
+## ✅ Learning Outcomes
 
+After completing this assignment, I learned how to:
 
-`total\_amount = Price × Quantity`
+- Upload datasets into Databricks
+- Create managed tables
+- Read data using Spark DataFrames
+- Perform exploratory data analysis
+- Detect NULL values
+- Detect duplicate records
+- Filter invalid data
+- Clean datasets using PySpark
+- Save cleaned data into Delta Lake
+- Verify the final cleaned dataset
 
+---
 
+## 🚀 Conclusion
 
-&#x20;7. Saved the Cleaned Dataset
-
-\###Finally, I saved the cleaned dataset as:
-
-
-
-`cleaned\_superstore.csv`
-
-
-
-Files Included
-
-
-
-\- `Data\_Cleaning\_Assignment.ipynb`
-
-\- `Sample - Superstore.csv`
-
-\- `cleaned\_superstore.csv`
-
-\- `README.md`
-
-
-
-&#x20;What I Learned
-
-
-
-Through this assignment, I learned:
-
-\- How to read CSV files using Pandas.
-
-\- How to explore a dataset.
-
-\- How to check and handle missing values.
-
-\- How to filter rows and select columns.
-
-\- How to remove duplicate records.
-
-\- How to create new columns using existing data.
-
-\- How to save a cleaned dataset as a new CSV file.
-
-
-
-**Conclusion**
-
-
-
-This assignment helped me understand the basic data cleaning process using Pandas. I learned how to work with a real dataset and perform common data preprocessing tasks before analysis.
-
-
-
-\---
-
-
-
-Name: Sahil Sheoran  
-
-College : DPGU PUNE
-
+This assignment provided practical experience with Databricks and Delta Lake by implementing a complete data cleaning pipeline. The workflow included reading raw data, performing quality checks, cleaning the dataset, saving it as a Delta Table, and validating the final results. This process demonstrates the importance of maintaining high-quality data before performing analytics or machine learning tasks.
